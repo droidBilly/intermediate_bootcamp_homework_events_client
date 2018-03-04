@@ -6,6 +6,7 @@ export const FETCHED_DETAILED_EVENT = 'FETCHED_DETAILED_EVENT'
 export const FETCHED_ALL_EVENTS = 'FETCHED_ALL_EVENTS'
 export const CREATE_EVENT = 'CREATE_EVENT'
 export const DELETE_EVENT = 'DELETE_EVENT'
+export const UPDATE_EVENT = 'UPDATE_EVENT'
 
 export const fetchEvent = (eventId) => (dispatch) => {
   request
@@ -43,5 +44,15 @@ export const deleteEvent = (eventId) => (dispatch) => {
     .then(response => dispatch({
       type: DELETE_EVENT,
       payload: eventId
+    }))
+}
+
+export const updateEvent = (eventId, updates) => (dispatch) => {
+  request
+    .put(`${baseUrl}/events/${eventId}`)
+    .send(updates)
+    .then(response => dispatch({
+      type: UPDATE_EVENT,
+      payload: response.body
     }))
 }
